@@ -4,4 +4,6 @@ export interface IUser extends Document {
     username: string;
     passwordHash: string;
     salt: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

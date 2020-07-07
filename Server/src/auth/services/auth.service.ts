@@ -1,11 +1,11 @@
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, Inject } from '@nestjs/common';
 
-import { UserRepository } from './repositories/user.repository';
-import { UserSignUpDto } from './dto/user-sign-up.dto';
-import { UserSignInDto } from './dto/user-sign-in.dto';
-import { IJwtPayload } from './interfaces/jwt-payload.interface';
-import { IUser } from './interfaces/user.interface';
+import { UserRepository } from '../repositories/user.repository';
+import { UserSignUpDto } from '../dto/user-sign-up.dto';
+import { UserSignInDto } from '../dto/user-sign-in.dto';
+import { IJwtPayload } from '../interfaces/jwt-payload.interface';
+import { IUser } from '../interfaces/user.interface';
 
 @Injectable()
 export class AuthService {

@@ -13,11 +13,11 @@ import { AuthGuard } from '@nestjs/passport';
 
 import { UserSignUpDto } from './dto/user-sign-up.dto';
 import { UserSignInDto } from './dto/user-sign-in.dto';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {  }
 
   @Post('sign-up')
   @UsePipes(ValidationPipe)
@@ -37,8 +37,6 @@ export class AuthController {
   @Put('test')
   @UseGuards(AuthGuard())
   public test(): string {
-    // Here we get user object from req.user
-    // So we should create the custom decorator to retrieve it always so that we won't be having pain to get user
     return 'Tested';
   }
 }

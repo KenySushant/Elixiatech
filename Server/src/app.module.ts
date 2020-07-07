@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from './auth/auth.module';
+import { DispatchModule } from './dispatch/dispatch.module';
 
 @Module({
   imports: [
@@ -10,7 +11,8 @@ import { AuthModule } from './auth/auth.module';
       useUnifiedTopology: true,
       useCreateIndex: true,
     }),
-    AuthModule
+    AuthModule,
+    DispatchModule
   ],
   controllers: [],
   providers: [],
