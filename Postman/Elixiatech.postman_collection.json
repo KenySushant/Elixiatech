@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "7291007a-56b6-45b8-84f5-57d1c1f5806e",
+		"name": "Elixiatech",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"SushantKeny\",\n\t\"password\": \"Asdf123$\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/auth/sign-up",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "177e70f9-83e1-4c1d-8254-7c7456bdf6c6",
+								"exec": [
+									"const response = JSON.parse(responseBody);\r",
+									"\r",
+									"if (response.accessToken) {\r",
+									"    pm.collectionVariables.set(\"accessToken\", response.accessToken);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"SushantKeny\",\n\t\"password\": \"Asdf123$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/auth/sign-in",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlN1c2hhbnRLZW55IiwiaWF0IjoxNTk0MTIwODE3LCJleHAiOjE1OTQxMjExMTcsInN1YiI6IjVmMDQ0YWJjMmI1MzdlMjk3MDA2MWIxZiJ9.LiSeU-Cyc2oYAqoADiEOkQJw5SsGQB1ujKNpGLYFwqA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/auth/test",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Dispatch",
+			"item": [
+				{
+					"name": "Dispatch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"deliveryNumber\": 15,\n\t\"shipmentNumber\": 15,\n\t\"sourceCode\": \"Test\",\n\t\"destinationCode\": \"Test\",\n\t\"vehicleNumber\": \"MH 01 AX 9431\",\n\t\"transporterCode\": \"Test\",\n\t\"startDate\": \"01-10-2020\",\n\t\"endDate\": \"02-10-2020\",\n\t\"driverName\": \"Test\",\n\t\"driverPhone\": \"Test\"\n}\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/dispatches",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"dispatches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dispatches",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/dispatches?vehicleNumber=MH 01 AX 9432&offset=2&limit=2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"dispatches"
+							],
+							"query": [
+								{
+									"key": "vehicleNumber",
+									"value": "MH 01 AX 9432"
+								},
+								{
+									"key": "offset",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "b1977ce9-c1a5-4041-85ef-42849cc4028e",
+			"key": "server",
+			"value": "http://localhost:3000"
+		},
+		{
+			"id": "3c40f01f-8cdb-4e73-b81a-04529f502175",
+			"key": "accessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlN1c2hhbnRLZW55IiwiaWF0IjoxNTk0MjAxOTQxLCJleHAiOjE1OTQyMDIyNDEsInN1YiI6IjVmMDQ0YWJjMmI1MzdlMjk3MDA2MWIxZiJ9.ktm9pANe3AAZpwk0mFzTNS9bAGnNMtyGzdp9CcRvR80"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
