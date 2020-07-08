@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { IDispatch } from '../interfaces/dispatch.interface';
 import { CreateDispatchDto } from '../dto/create-dispatch.dto';
 import { ConflictException, BadRequestException } from '@nestjs/common';
+import { FilterDispatchDto } from '../dto/filter-dispatch.dto';
 
 export class DispatchRepository {
   constructor(@InjectModel('Dispatch') private readonly DispatchModel: Model<IDispatch>) {  }
@@ -53,5 +54,35 @@ export class DispatchRepository {
 
       throw error;
     }
+  }
+
+  public async getAllDispatches(): Promise<IDispatch[]> {
+    const dispatches: IDispatch[] = await this.DispatchModel.find();
+    return dispatches;
+  }
+
+  public async filterDispatches(
+    filterDispatchDto: FilterDispatchDto
+  ): Promise<IDispatch[]> {
+    const {
+      vehicleNumber,
+      transporterCode
+    } = filterDispatchDto;
+
+    const filter: {
+      vehicleNumber?: string,
+      transporterCode?: string
+    } = {};
+
+    if (vehicleNumber) {
+      filter.vehicleNumber = vehicleNumber;
+    }
+
+    if (transporterCode) {
+      filter.transporterCode = transporterCode;
+    }
+
+    const dispatches: IDispatch[] = await this.DispatchModel.find(filter);
+    return dispatches;
   }
 }
