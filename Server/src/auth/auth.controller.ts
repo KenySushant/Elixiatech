@@ -33,10 +33,4 @@ export class AuthController {
     const acknowledgement = await this.authService.signIn(userSignInDto);
     return acknowledgement;
   }
-
-  @Put('test')
-  @UseGuards(AuthGuard())
-  public test(): string {
-    return 'Tested';
-  }
 }
