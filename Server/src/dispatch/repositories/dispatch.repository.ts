@@ -66,7 +66,9 @@ export class DispatchRepository {
   ): Promise<IDispatch[]> {
     const {
       vehicleNumber,
-      transporterCode
+      transporterCode,
+      offset,
+      limit,
     } = filterDispatchDto;
 
     const filter: {
@@ -80,6 +82,15 @@ export class DispatchRepository {
 
     if (transporterCode) {
       filter.transporterCode = transporterCode;
+    }
+
+    if (offset && limit) {
+      const dispatches: IDispatch[] = await this.DispatchModel
+        .find(filter)
+        .skip(Number(offset))
+        .limit(Number(limit));
+
+      return dispatches;
     }
 
     const dispatches: IDispatch[] = await this.DispatchModel.find(filter);

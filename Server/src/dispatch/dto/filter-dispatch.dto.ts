@@ -1,4 +1,4 @@
-import { IsString, Matches, IsOptional } from "class-validator";
+import { IsString, Matches, IsOptional, ValidateIf, IsNotEmpty } from 'class-validator';
 
 export class FilterDispatchDto {
   @IsString()
@@ -9,4 +9,12 @@ export class FilterDispatchDto {
   @IsOptional()
   @IsString()
   transporterCode: string;
+
+  @ValidateIf(e => Boolean(e.limit))
+  @IsNotEmpty()
+  offset: string;
+
+  @ValidateIf(e => Boolean(e.offset))
+  @IsNotEmpty()
+  limit: string;
 }
